@@ -1,0 +1,15 @@
+inputConfig:
+  workRoot: /home/lixy/prjs/git-prj/detect_tools/unionCv/playground
+  dataRoot: /home/lixy/prjs/git-prj/mmyolo/data/cat/
+  trainFile: annotations/trainval.json
+  valFile: annotations/test.json
+  classNames: ['cat', ]
+  anchors: [
+      [[60, 60], [154, 91], [143, 162]],  # P3/8
+      [[242, 160], [189, 287],[391, 207]],  # P4/16
+      [[353, 337], [539, 341], [443, 432]]  # P5/32
+    ]
+  batchSize: 8
+  workers: 4
+gpuNums: 2
+configFileName: yolov5_test.py
