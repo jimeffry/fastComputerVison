@@ -82,6 +82,6 @@ def app():
             st.subheader("Click the 'convert' button to trigger data convert ") 
             convert_button = st.button(label="convert", key="convert", disabled=False)
             if convert_button:
-                ct.convert_xml()
+                ct.convertXmlData()
                 st.markdown("the convert xml data is over ")
             
