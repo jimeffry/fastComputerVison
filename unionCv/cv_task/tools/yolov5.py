@@ -147,6 +147,7 @@ class YoLo(BaseClientTrainer):
         dataset_name = data_root.split("/")[-1]
         coco_json_file = os.path.join(data_root,"annotations/"+dataset_name+".json")
         out_dir = os.path.join(data_root,"annotations")
+        self.checkDir(out_dir)
         spl_sh = "python3 {} --json {} --out-dir {} --ratios 0.9 0.1".format(self.coco_split,coco_json_file,out_dir)
         logger.info("begin to run data convert")
         os.system(convert_sh)

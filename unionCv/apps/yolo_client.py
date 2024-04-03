@@ -79,8 +79,8 @@ def app():
             else:
                 st.write("Please input the right number,the length of image shape should be: {}".format(2))
         with tab5:
-            st.subheader("Click the 'convert' button to trigger data convert ") 
-            convert_button = st.button(label="convert", key="convert", disabled=False)
+            st.subheader("Click the 'convert_data' button to trigger data convert ") 
+            convert_button = st.button(label="convert_data", key="convert_data", disabled=False)
             if convert_button:
                 ct.convertXmlData()
                 st.markdown("the convert xml data is over ")
