@@ -17,7 +17,7 @@ def app():
         st.subheader("the upload config contents are : ")
         st.code(string_data)
         # st.divider()
-        tab1,tab2,tab3,tab4 = st.tabs(["model_train","show_train_logs","demo_inference","export_onnx"])
+        tab1,tab2,tab3,tab4,tab5 = st.tabs(["model_train","show_train_logs","demo_inference","export_onnx","convert_xml_data"])
         edge_plat = "YoLo"
         all_register()
         with tab1:
@@ -78,4 +78,10 @@ def app():
                     st.download_button(label="Download onnx model",data=json_content,file_name=model_name)
             else:
                 st.write("Please input the right number,the length of image shape should be: {}".format(2))
+        with tab5:
+            st.subheader("Click the 'convert' button to trigger data convert ") 
+            convert_button = st.button(label="convert", key="convert", disabled=False)
+            if convert_button:
+                ct.convert_xml()
+                st.markdown("the convert xml data is over ")
             

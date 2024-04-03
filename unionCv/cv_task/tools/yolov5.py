@@ -18,6 +18,8 @@ class YoLo(BaseClientTrainer):
         self.template_finetune_file = "/home/lixy/prjs/git-prj/detect_tools/unionCv/cv_task/config/template_finetune_config.py"
         self.config_dir = "/home/lixy/prjs/git-prj/mmyolo/configs/custom_dataset"
         self.optimize_anchor = "/home/lixy/prjs/git-prj/mmyolo/tools/analysis_tools/optimize_anchors.py"
+        self.voc_convert = "/home/lixy/prjs/git-prj/fastComputerVison/unionCv/mmyolo/tools/dataset_converters/voc2coco.py"
+        self.coco_split = "/home/lixy/prjs/git-prj/fastComputerVison/unionCv/mmyolo/tools/misc/coco_split.py"
         self.default_anchors = [
             [[60, 60], [154, 91], [143, 162]],  # P3/8
             [[242, 160], [189, 287],[391, 207]],  # P4/16
@@ -138,6 +140,18 @@ class YoLo(BaseClientTrainer):
         os.system(convert_sh)
         logger.info("convert finished")
         self.export_model_path = check_point.replace(".pth",".onnx")
+
+    def convertXmlData(self) ->None:
+        data_root = self.configSet["inputConfig"]["dataRoot"]
+        convert_sh = "python3 {}  --data-dir {} ".format(self.voc_convert, data_root)
+        dataset_name = data_root.split("/")[-1]
+        coco_json_file = os.path.join(data_root,"annotations/"+dataset_name+".json")
+        out_dir = os.path.join(data_root,"annotations")
+        spl_sh = "python3 {} --json {} --out-dir {} --ratios 0.9 0.1".format(self.coco_split,coco_json_file,out_dir)
+        logger.info("begin to run data convert")
+        os.system(convert_sh)
+        os.system(spl_sh)
+        logger.info("data convert finished")
 
     def showLogs(self,logdir:str)->None:
         cnts = os.listdir(logdir.strip())
